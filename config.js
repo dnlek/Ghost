@@ -1,4 +1,4 @@
-// # Ghost Configuration
+// # Ghost Configuration2
 // Setup your Ghost install for various environments
 // Documentation can be found at http://docs.ghost.org/usage/configuration/
 
@@ -7,7 +7,7 @@ var path = require('path'),
 
 config = {
     // ### Development **(default)**
-    development: {
+    development_old: {
         // The url to use when providing links to the site, E.g. in RSS and email.
         url: 'http://my-ghost-blog.com',
 
@@ -44,11 +44,12 @@ config = {
     // ### Production
     // When running Ghost in the wild, use the production environment
     // Configure your URL and mail settings here
-    production: {
+    development: {
         url: 'http://' + process.env.DOMAIN,
         mail: {},
         database: {
             client: 'postgres',
+
             connection: {
               host: process.env.DB_HOST,
               user: process.env.DB_USER,
@@ -65,7 +66,28 @@ config = {
             port: process.env.PORT
         }
     },
+    production: {
+        url: 'http://' + process.env.DOMAIN,
+        mail: {},
+        database: {
+            client: 'postgres',
 
+            connection: {
+              host: process.env.DB_HOST,
+              user: process.env.DB_USER,
+              password: process.env.DB_PASS,
+              database: process.env.DB_NAME,
+              port: process.env.DB_PORT
+            },
+            debug: false
+        },
+        server: {
+            // Host to be passed to node's `net.Server#listen()`
+            host: '0.0.0.0',
+            // Port to be passed to node's `net.Server#listen()`, for iisnode set this to `process.env.PORT`
+            port: process.env.PORT
+        }
+    },
     // **Developers only need to edit below here**
 
     // ### Testing
